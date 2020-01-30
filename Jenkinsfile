@@ -12,7 +12,7 @@ pipeline {
 
     stage('Mail Notification') {
       steps {
-        emailext(subject: 'Build', attachLog: true, body: 'This is the result of the build', to: 'chekla31@gmail.com')
+        mail(subject: 'Build', body: 'The build has finished', to: 'chekla31@gmail.com')
       }
     }
 
