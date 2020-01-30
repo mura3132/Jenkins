@@ -17,11 +17,34 @@ pipeline {
     }
 
     stage('Code Analysis') {
-      steps {
-        withSonarQubeEnv('sonar') {
-          bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle sonarqube'
+      parallel {
+        stage('Code Analysis') {
+          steps {
+            withSonarQubeEnv('sonar') {
+              bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle sonarqube'
+            }
+
+          }
         }
 
+        stage('Test reporting') {
+          steps {
+            bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle jacocoTestCoverageVerification'
+          }
+        }
+
+      }
+    }
+
+    stage('Deployment') {
+      steps {
+        bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle publish'
+      }
+    }
+
+    stage('Slack Notification') {
+      steps {
+        slackSend(message: 'Integration terminée', channel: 'général')
       }
     }
 
