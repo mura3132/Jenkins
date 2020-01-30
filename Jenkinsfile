@@ -5,9 +5,9 @@ pipeline {
       steps {
         bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle build'
         bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle javadoc'
-        archiveArtifacts './build/docs/javadoc/**'
-        archiveArtifacts './build/doc/javadoc/**'
-        archiveArtifacts './build/test-results/test/**'
+        archiveArtifacts 'build/docs/javadoc/**'
+        archiveArtifacts 'build/libs/**'
+        archiveArtifacts 'build/test-results/test/**'
       }
     }
 
