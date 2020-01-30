@@ -44,7 +44,7 @@ pipeline {
 
     stage('Slack Notification') {
       steps {
-        slackSend(message: 'Integration terminée', channel: 'général')
+        slackSend(message: 'Integration terminée', channel: 'tp6')
       }
     }
 
