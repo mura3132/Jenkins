@@ -37,9 +37,15 @@ pipeline {
       }
     }
 
+    stage('Deployment') {
+      steps {
+        bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle publish'
+      }
+    }
+
     stage('Slack Notification') {
       steps {
-        slackSend(message: 'Integration terminée', channel: 'tp6')
+        slackSend(channel: 'tp6', message: 'Build is done')
       }
     }
 
