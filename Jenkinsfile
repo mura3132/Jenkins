@@ -39,19 +39,28 @@ pipeline {
       }
     }
     
-    if (env.BRANCH_NAME != 'master' && env.CHANGE_ID == null){
-      stage('Deployment') {
-      steps {
-        bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle publish'
+    
+stage('Deployment') {
+    when {
+      expression {
+        env.BRANCH_NAME != 'master' && env.CHANGE_ID == null
       }
     }
+    steps {
+      bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle publish'
+    }
+}
 
-    stage('Slack Notification') {
-      steps {
-        slackSend(channel: 'tp6', message: 'Build is done')
-      }
+stage('Slack Notification') {
+  when {
+    expression {
+      env.BRANCH_NAME != 'master' && env.CHANGE_ID == null
     }
-    }
+  }
+  steps {
+    slackSend(channel: 'tp6', message: 'Build is done')
+  }
+}
 
     
 
