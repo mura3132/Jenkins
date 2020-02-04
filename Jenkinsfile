@@ -9,8 +9,6 @@ pipeline {
         junit 'build/test-results/test/*.xml'
       }
     }
-
-    
     
     stage('Mail Notification') {
       steps {
