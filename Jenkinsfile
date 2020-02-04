@@ -40,7 +40,7 @@ pipeline {
     stage('Deployment') {
       when {
         expression {
-          env.BRANCH_NAME != 'master' && env.CHANGE_ID == null
+          env.BRANCH_NAME != 'master' && env.CHANGE_ID != null
         }
 
       }
@@ -52,7 +52,7 @@ pipeline {
     stage('Slack Notification') {
       when {
         expression {
-          env.BRANCH_NAME != 'master' && env.CHANGE_ID == null
+          env.BRANCH_NAME != 'master' && env.CHANGE_ID != null
         }
 
       }
