@@ -11,6 +11,7 @@ pipeline {
     }
 
     
+    
     stage('Mail Notification') {
       steps {
         mail(subject: 'Build', body: 'The build has finished', to: 'chekla31@gmail.com')
