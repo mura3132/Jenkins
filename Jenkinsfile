@@ -10,8 +10,6 @@ pipeline {
       }
     }
 
-    
-    
     stage('Mail Notification') {
       steps {
         mail(subject: 'Build', body: 'The build has finished', to: 'chekla31@gmail.com')
@@ -38,31 +36,30 @@ pipeline {
 
       }
     }
-    
-    
-stage('Deployment') {
-    when {
-      expression {
-        env.BRANCH_NAME != 'master' && env.CHANGE_ID == null
+
+    stage('Deployment') {
+      when {
+        expression {
+          env.BRANCH_NAME != 'master' && env.CHANGE_ID == null
+        }
+
+      }
+      steps {
+        bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle publish'
       }
     }
-    steps {
-      bat 'F:\\Khbich\\2CS\\new\\OUTILS\\tp\\gradle-6.0.1\\bin\\gradle publish'
-    }
-}
 
-stage('Slack Notification') {
-  when {
-    expression {
-      env.BRANCH_NAME != 'master' && env.CHANGE_ID == null
-    }
-  }
-  steps {
-    slackSend(channel: 'tp6', message: 'Build is done')
-  }
-}
+    stage('Slack Notification') {
+      when {
+        expression {
+          env.BRANCH_NAME != 'master' && env.CHANGE_ID == null
+        }
 
-    
+      }
+      steps {
+        slackSend(channel: 'tp6', message: 'Build is done')
+      }
+    }
 
   }
 }
